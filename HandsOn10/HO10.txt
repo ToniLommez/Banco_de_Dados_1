@@ -1,0 +1,265 @@
+Hands On 10
+Marcos Antonio Lommez Candido Ribeiro - 771157
+
+
+Atores         (    10.000 registros) → 176B → Codigo (16B)
+                                             → Nome (160B)
+Clientes       (   100.000 registros) → 400B → CPF (11B)
+                                             → Nome (160B), Endereco (200B), Telefone (16B), DataNascimento (12B), Sexo (1B)
+Filmes         ( 2.000.000 registros) → 256B → Codigo (16B)
+                                             → Nome (160B), Genero (80B)
+Funcionarios   (     3.500 registros) → 182B → CPF (11B)
+                                             → Nome (160B), CPF_Supervisor (11B)
+Midias         (10.000.000 registros) →  72B → Identificador (24B)
+                                             → Tipo (8B), PrecoDiaria (24B), CodFilme (16B)
+Aluguel        (20.000.000 registros) →  92B → CPF_Cliente (11B), ID_Midia (24B), DataLocacao (12B)
+                                             → DataDevolucao (10B), ValorPagar (24B), CPF_Funcionario (11B)
+Pagamentos     (50.000.000 registros) → 131B → Codigo (48B)
+                                             → CPF_Cliente (11B), ID_Midia (24B), DataLocacao (12B), Data (12B), Valor (24B)
+AtoresEmFilmes ( 1.000.000 registros) →  32B → CodFilme (16B), CodAtor (16B)
+
+-----------------------------------------------------
+ATORES
+
+Tabela:
+tamanho do registro = 176
+numero de registros = 10000
+F/blocagem          = 11
+U/inutilizado       = 112 Bytes
+B/blocos            = 910
+Consumo espaco      = 1863680 Bytes / 1.77734375 MegaBytes
+Acesso CP           = 11
+Acesso Outros       = 910
+
+Indice Primario:
+tamanho do registro = 32
+numero de registros = 910
+F/blocagem          = 64
+U/inutilizado       = 0 Bytes
+B/blocos            = 15
+Consumo espaco      = 30720 Bytes / 0.029296875 MegaBytes
+Acesso Ordenado     = 5
+Acesso Desordenado  = 15
+
+-----------------------------------------------------
+CLIENTES
+Tabela:
+tamanho do registro = 400
+numero de registros = 100000
+F/blocagem          = 5
+U/inutilizado       = 48 Bytes
+B/blocos            = 20000
+Consumo espaco      = 40960000 Bytes / 39.0625 MegaBytes
+Acesso CP           = 16
+Acesso Outros       = 20000
+
+Indice Primario:
+tamanho do registro = 27
+numero de registros = 20000
+F/blocagem          = 75
+U/inutilizado       = 23 Bytes
+B/blocos            = 267
+Consumo espaco      = 546816 Bytes / 0.521484375 MegaBytes
+Acesso Ordenado     = 10
+Acesso Desordenado  = 267
+
+-----------------------------------------------------
+FILMES
+tamanho do registro = 256
+numero de registros = 2000000
+F/blocagem          = 8
+U/inutilizado       = 0 Bytes
+B/blocos            = 250000
+Consumo espaco      = 512000000 Bytes / 488.28125 MegaBytes
+Acesso CP           = 19
+Acesso Outros       = 250000
+
+Indice Primario:
+tamanho do registro = 32
+numero de registros = 250000
+F/blocagem          = 64
+U/inutilizado       = 0 Bytes
+B/blocos            = 3907
+Consumo espaco      = 8001536 Bytes / 7.630859375 MegaBytes
+Acesso Ordenado     = 13
+Acesso Desordenado  = 3907
+
+-----------------------------------------------------
+FUNCIONARIOS
+Tabela:
+tamanho do registro = 182
+numero de registros = 3500
+F/blocagem          = 11
+U/inutilizado       = 46 Bytes
+B/blocos            = 319
+Consumo espaco      = 653312 Bytes / 0.623046875 MegaBytes
+Acesso CP           = 10
+Acesso Outros       = 319
+
+Indice Primario:
+tamanho do registro = 27
+numero de registros = 319
+F/blocagem          = 75
+U/inutilizado       = 23 Bytes
+B/blocos            = 5
+Consumo espaco      = 10240 Bytes / 0.009765625 MegaBytes
+Acesso Ordenado     = 4
+Acesso Desordenado  = 5
+
+Indice Secundario CPF_Supervisor:
+tamanho do registro = 27
+numero de registros = 3500
+F/blocagem          = 75
+U/inutilizado       = 23 Bytes
+B/blocos            = 47
+Consumo espaco      = 96256 Bytes / 0.091796875 MegaBytes
+Acesso Ordenado     = 7
+Acesso Desordenado  = 47
+
+-----------------------------------------------------
+MIDIAS
+Tabela:
+tamanho do registro = 72
+numero de registros = 10000000
+F/blocagem          = 28
+U/inutilizado       = 32 Bytes
+B/blocos            = 357143
+Consumo espaco      = 731428864 Bytes / 697.544921875 MegaBytes
+Acesso CP           = 20
+Acesso Outros       = 357143
+
+Indice Primario:
+tamanho do registro = 40
+numero de registros = 357143
+F/blocagem          = 51
+U/inutilizado       = 8 Bytes
+B/blocos            = 7003
+Consumo espaco      = 14342144 Bytes / 13.677734375 MegaBytes
+Acesso Ordenado     = 14
+Acesso Desordenado  = 7003
+
+Indice Secundario CodFilmes:
+tamanho do registro = 32
+numero de registros = 10000000
+F/blocagem          = 64
+U/inutilizado       = 0 Bytes
+B/blocos            = 156250
+Consumo espaco      = 320000000 Bytes / 305.17578125 MegaBytes
+Acesso Ordenado     = 19
+Acesso Desordenado  = 156250
+
+-----------------------------------------------------
+ALUGUEL
+Tabela:
+tamanho do registro = 92
+numero de registros = 20000000
+F/blocagem          = 22
+U/inutilizado       = 24 Bytes
+B/blocos            = 909091
+Consumo espaco      = 1861818368 Bytes / 1775.568359375 MegaBytes
+Acesso CP           = 21
+Acesso Outros       = 909091
+
+Indice Primario:
+tamanho do registro = 63
+numero de registros = 909091
+F/blocagem          = 32
+U/inutilizado       = 32 Bytes
+B/blocos            = 28410
+Consumo espaco      = 58183680 Bytes / 55.48828125 MegaBytes
+Acesso Ordenado     = 16
+Acesso Desordenado  = 28410
+
+Indice Secundario CPF_Cliente:
+tamanho do registro = 27
+numero de registros = 20000000
+F/blocagem          = 75
+U/inutilizado       = 23 Bytes
+B/blocos            = 266667
+Consumo espaco      = 546134016 Bytes / 520.833984375 MegaBytes
+Acesso Ordenado     = 20
+Acesso Desordenado  = 266667
+
+Indice Secundario ID_Midia:
+tamanho do registro = 40
+numero de registros = 20000000
+F/blocagem          = 51
+U/inutilizado       = 8 Bytes
+B/blocos            = 392157
+Consumo espaco      = 803137536 Bytes / 765.931640625 MegaBytes
+Acesso Ordenado     = 20
+Acesso Desordenado  = 392157
+
+-----------------------------------------------------
+PAGAMENTOS
+Tabela:
+tamanho do registro = 131
+numero de registros = 50000000
+F/blocagem          = 15
+U/inutilizado       = 83 Bytes
+B/blocos            = 3333334
+Consumo espaco      = 6826668032 Bytes / 6510.41796875 MegaBytes
+Acesso CP           = 23
+Acesso Outros       = 3333334
+
+Indice Primario:
+tamanho do registro = 64
+numero de registros = 3333334
+F/blocagem          = 32
+U/inutilizado       = 0 Bytes
+B/blocos            = 104167
+Consumo espaco      = 213334016 Bytes / 203.451171875 MegaBytes
+Acesso Ordenado     = 18
+Acesso Desordenado  = 104167
+
+Indice Secundario ID_Midia:
+tamanho do registro = 40
+numero de registros = 50000000
+F/blocagem          = 51
+U/inutilizado       = 8 Bytes
+B/blocos            = 980393
+Consumo espaco      = 2007844864 Bytes / 1914.830078125 MegaBytes
+Acesso Ordenado     = 21
+Acesso Desordenado  = 980393
+
+-----------------------------------------------------
+ATORESEMFILMES
+Tabela:
+tamanho do registro = 32
+numero de registros = 1000000
+F/blocagem          = 64
+U/inutilizado       = 0 Bytes
+B/blocos            = 15625
+Consumo espaco      = 32000000 Bytes / 30.517578125 MegaBytes
+Acesso CP           = 15
+Acesso Outros       = 15625
+
+Indice Primario:
+tamanho do registro = 48
+numero de registros = 15625
+F/blocagem          = 42
+U/inutilizado       = 32 Bytes
+B/blocos            = 373
+Consumo espaco      = 763904 Bytes / 0.728515625 MegaBytes
+Acesso Ordenado     = 10
+Acesso Desordenado  = 373
+
+Indice Secundario CodFilmes:
+tamanho do registro = 32
+numero de registros = 1000000
+F/blocagem          = 64
+U/inutilizado       = 0 Bytes
+B/blocos            = 15625
+Consumo espaco      = 32000000 Bytes / 30.517578125 MegaBytes
+Acesso Ordenado     = 15
+Acesso Desordenado  = 15625
+
+Indice Secundario CodAtor:
+tamanho do registro = 32
+numero de registros = 1000000
+F/blocagem          = 64
+U/inutilizado       = 0 Bytes
+B/blocos            = 15625
+Consumo espaco      = 32000000 Bytes / 30.517578125 MegaBytes
+Acesso Ordenado     = 15
+Acesso Desordenado  = 15625

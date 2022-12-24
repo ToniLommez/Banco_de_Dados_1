@@ -1,0 +1,305 @@
+Hands On 11
+Marcos Antonio Lommez Candido Ribeiro - 771157
+
+
+Atores         (    10.000 registros) → Chave =  16B  → Codigo (16B)
+                                        Total = 176B  → Nome (160B)
+
+Clientes       (   100.000 registros) → Chave =  11B  → CPF (11B)
+                                        Total = 400B  → Nome (160B), Endereco (200B), Telefone (16B), DataNascimento (12B), Sexo (1B)
+
+Filmes         ( 2.000.000 registros) → Chave =  16B  → Codigo (16B)
+                                        Total = 256B  → Nome (160B), Genero (80B)
+
+Funcionarios   (     3.500 registros) → Chave =  11B  → CPF (11B)
+                                        Total = 182B  → Nome (160B), CPF_Supervisor (11B)
+
+Midias         (10.000.000 registros) → Chave =  24B  → Identificador (24B)
+                                        Total =  72B  → Tipo (8B), PrecoDiaria (24B), CodFilme (16B)
+
+Aluguel        (20.000.000 registros) → Chave =  47B  → CPF_Cliente (11B), ID_Midia (24B), DataLocacao (12B)
+                                        Total =  92B  → DataDevolucao (10B), ValorPagar (24B), CPF_Funcionario (11B)
+
+Pagamentos     (50.000.000 registros) → Chave =  48B  → Codigo (48B)
+                                        Total = 131B  → CPF_Cliente (11B), ID_Midia (24B), DataLocacao (12B), Data (12B), Valor (24B)
+
+AtoresEmFilmes ( 1.000.000 registros) → Chave =  32B  → CodFilme (16B), CodAtor (16B)
+                                        Total =  32B  →              
+
+
+----------------------------------------------------------------------------------------
+
+ATORES
+
+--------- Dados do Arquivo ---------
+Nome do arquivo               = Atores
+Tamanho do bloco              = 2KB
+Tamanho do registro           = 176B
+Numero de registros           = 10.000
+Tamanho da chave primaria     = 16B
+Tamanho do ponteiro           = 16B
+Numero de chaves estrangeiras = 0
+
+--------- Arquivo Indexado ---------
+F/blocagem                    = 11
+B/blocos                      = 910
+Consumo espaco                = 1.863.680 Bytes / 1,78 MegaBytes
+Acesso Chave Primaria         = 10
+Acesso por outro campo        = 910
+
+---- Indice Multinivel Estatico ----
+F/blocagem                    = 64
+B/blocos nivel 1              = 15
+B/blocos nivel 2              = 1
+Consumo espaco                = 32.768 Bytes / 0,03 MegaBytes
+Acesso ISAM                   = 3
+
+----------------------------------------------------------------------------------------
+
+CLIENTES
+
+--------- Dados do Arquivo ---------
+Nome do arquivo               = Clientes
+Tamanho do bloco              = 2KB
+Tamanho do registro           = 400B
+Numero de registros           = 100.000
+Tamanho da chave primaria     = 11B
+Tamanho do ponteiro           = 16B
+Numero de chaves estrangeiras = 0
+
+--------- Arquivo Indexado ---------
+F/blocagem                    = 5
+B/blocos                      = 20.000
+Consumo espaco                = 40.960.000 Bytes / 39,06 MegaBytes
+Acesso Chave Primaria         = 15
+Acesso por outro campo        = 20.000
+
+---- Indice Multinivel Estatico ----
+F/blocagem                    = 75
+B/blocos nivel 1              = 267
+B/blocos nivel 2              = 4
+Consumo espaco                = 548.864 Bytes / 0,52 MegaBytes
+Acesso ISAM                   = 4
+
+----------------------------------------------------------------------------------------
+
+FILMES
+
+--------- Dados do Arquivo ---------
+Nome do arquivo               = Filmes
+Tamanho do bloco              = 2KB
+Tamanho do registro           = 256B
+Numero de registros           = 2.000.000
+Tamanho da chave primaria     = 16B
+Tamanho do ponteiro           = 16B
+Numero de chaves estrangeiras = 0
+
+--------- Arquivo Indexado ---------
+F/blocagem                    = 8
+B/blocos                      = 250.000
+Consumo espaco                = 512.000.000 Bytes / 488,28 MegaBytes
+Acesso Chave Primaria         = 18
+Acesso por outro campo        = 250.000
+
+---- Indice Multinivel Estatico ----
+F/blocagem                    = 64
+B/blocos nivel 1              = 3.907
+B/blocos nivel 2              = 62
+Consumo espaco                = 8.003.584 Bytes / 7,63 MegaBytes
+Acesso ISAM                   = 4
+
+----------------------------------------------------------------------------------------
+
+FUNCIONARIOS
+
+--------- Dados do Arquivo ---------
+Nome do arquivo               = Funcionarios
+Tamanho do bloco              = 2KB
+Tamanho do registro           = 182B
+Numero de registros           = 3.500
+Tamanho da chave primaria     = 11B
+Tamanho do ponteiro           = 16B
+Numero de chaves estrangeiras = 1
+
+--------- Arquivo Indexado ---------
+F/blocagem                    = 11
+B/blocos                      = 319
+Consumo espaco                = 653.312 Bytes / 0,62 MegaBytes
+Acesso Chave Primaria         = 9
+Acesso por outro campo        = 319
+
+---- Indice Multinivel Estatico ----
+F/blocagem                    = 75
+B/blocos nivel 1              = 5
+B/blocos nivel 2              = 1
+Consumo espaco                = 12.288 Bytes / 0,01 MegaBytes
+Acesso ISAM                   = 3
+
+---- Indice Multinivel Dinamico ----
+Nome da chave estrangeira     = CPF_Supervisor
+Tamanho do elemento           = 11B
+Tamanho do ponteiro de no     = 12B
+F/blocagem                    = 52
+Numero de blocos de indice    = 2
+Consumo espaco                = 143.360 Bytes / 0,14 MegaBytes
+Acesso arvore                 = 3
+
+----------------------------------------------------------------------------------------
+
+MIDIAS
+
+--------- Dados do Arquivo ---------
+Nome do arquivo               = Midias
+Tamanho do bloco              = 2KB
+Tamanho do registro           = 72B
+Numero de registros           = 10.000.000
+Tamanho da chave primaria     = 24B
+Tamanho do ponteiro           = 16B
+Numero de chaves estrangeiras = 1
+
+--------- Arquivo Indexado ---------
+F/blocagem                    = 28
+B/blocos                      = 357.143
+Consumo espaco                = 731.428.864 Bytes / 697,54 MegaBytes
+Acesso Chave Primaria         = 19
+Acesso por outro campo        = 357.143
+
+---- Indice Multinivel Estatico ----
+F/blocagem                    = 51
+B/blocos nivel 1              = 7.003
+B/blocos nivel 2              = 138
+Consumo espaco                = 14.344.192 Bytes / 13,68 MegaBytes
+Acesso ISAM                   = 5
+
+---- Indice Multinivel Dinamico ----
+Nome da chave estrangeira     = CodFilme
+Tamanho do elemento           = 16B
+Tamanho do ponteiro de no     = 12B
+F/blocagem                    = 44
+Numero de blocos de indice    = 4.289
+Consumo espaco                = 474.238.976 Bytes / 452,27 MegaBytes
+Acesso arvore                 = 5
+
+----------------------------------------------------------------------------------------
+
+ALUGUEL
+
+--------- Dados do Arquivo ---------
+Nome do arquivo               = Aluguel
+Tamanho do bloco              = 2KB
+Tamanho do registro           = 92B
+Numero de registros           = 20.000.000
+Tamanho da chave primaria     = 47B
+Tamanho do ponteiro           = 16B
+Numero de chaves estrangeiras = 2
+
+--------- Arquivo Indexado ---------
+F/blocagem                    = 22
+B/blocos                      = 909.091
+Consumo espaco                = 1.861.818.368 Bytes / 1.775,57 MegaBytes
+Acesso Chave Primaria         = 20
+Acesso por outro campo        = 909.091
+
+---- Indice Multinivel Estatico ----
+F/blocagem                    = 32
+B/blocos nivel 1              = 28.410
+B/blocos nivel 2              = 888
+Consumo espaco                = 58.185.728 Bytes / 55,49 MegaBytes
+Acesso ISAM                   = 5
+
+---- Indice Multinivel Dinamico ----
+Nome da chave estrangeira     = CPF_Cliente
+Tamanho do elemento           = 11B
+Tamanho do ponteiro de no     = 12B
+F/blocagem                    = 52
+Numero de blocos de indice    = 6.010
+Consumo espaco                = 800.002.048 Bytes / 762,94 MegaBytes
+Acesso arvore                 = 5
+
+Nome da chave estrangeira     = ID_Midia
+Tamanho do elemento           = 24B
+Tamanho do ponteiro de no     = 12B
+F/blocagem                    = 35
+Numero de blocos de indice    = 13.290
+Consumo espaco                = 1.197.504.512 Bytes / 1.142,03 MegaBytes
+Acesso arvore                 = 6
+
+----------------------------------------------------------------------------------------
+
+PAGAMENTOS
+
+--------- Dados do Arquivo ---------
+Nome do arquivo               = Pagamentos
+Tamanho do bloco              = 2KB
+Tamanho do registro           = 131B
+Numero de registros           = 50.000.000
+Tamanho da chave primaria     = 48B
+Tamanho do ponteiro           = 16B
+Numero de chaves estrangeiras = 1
+
+--------- Arquivo Indexado ---------
+F/blocagem                    = 15
+B/blocos                      = 3.333.334
+Consumo espaco                = 6.826.668.032 Bytes / 6.510,42 MegaBytes
+Acesso Chave Primaria         = 22
+Acesso por outro campo        = 3.333.334
+
+---- Indice Multinivel Estatico ----
+F/blocagem                    = 32
+B/blocos nivel 1              = 104.167
+B/blocos nivel 2              = 3.256
+Consumo espaco                = 213.336.064 Bytes / 203,45 MegaBytes
+Acesso ISAM                   = 6
+
+---- Indice Multinivel Dinamico ----
+Nome da chave estrangeira     = ID_Midia
+Tamanho do elemento           = 24B
+Tamanho do ponteiro de no     = 12B
+F/blocagem                    = 35
+Numero de blocos de indice    = 33.223
+Consumo espaco                = 2.993.756.160 Bytes / 2.855,07 MegaBytes
+Acesso arvore                 = 6
+
+----------------------------------------------------------------------------------------
+
+ATORESEMFILMES
+
+--------- Dados do Arquivo ---------
+Nome do arquivo               = AtoresEmFilmes
+Tamanho do bloco              = 2KB
+Tamanho do registro           = 32B
+Numero de registros           = 1.000.000
+Tamanho da chave primaria     = 32B
+Tamanho do ponteiro           = 16B
+Numero de chaves estrangeiras = 2
+
+--------- Arquivo Indexado ---------
+F/blocagem                    = 64
+B/blocos                      = 15.625
+Consumo espaco                = 32.000.000 Bytes / 30,52 MegaBytes
+Acesso Chave Primaria         = 14
+Acesso por outro campo        = 15.625
+
+---- Indice Multinivel Estatico ----
+F/blocagem                    = 42
+B/blocos nivel 1              = 373
+B/blocos nivel 2              = 9
+Consumo espaco                = 765.952 Bytes / 0,73 MegaBytes
+Acesso ISAM                   = 4
+
+---- Indice Multinivel Dinamico ----
+Nome da chave estrangeira     = CodFilme
+Tamanho do elemento           = 16B
+Tamanho do ponteiro de no     = 12B
+F/blocagem                    = 44
+Numero de blocos de indice    = 429
+Consumo espaco                = 47.425.536 Bytes / 45,23 MegaBytes
+Acesso arvore                 = 5
+
+Nome da chave estrangeira     = CodAtor
+Tamanho do elemento           = 16B
+Tamanho do ponteiro de no     = 12B
+F/blocagem                    = 44
+Numero de blocos de indice    = 429
+Consumo espaco                = 47.425.536 Bytes / 45,23 MegaBytes
+Acesso arvore                 = 5

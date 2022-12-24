@@ -1,0 +1,26 @@
+Apresentar a blocagem (fator de bloco), o número de blocos necessários para armazenar o arquivo, 
+o espaço desperdiçado por bloco em cada arquivo e o espaço total gasto para armazenar cada arquivo (tabela) 
+presente no modelo relacional abaixo.
+
+Atores (10.000 registros)            → Codigo (16B), Nome (160B)
+Clientes (100.000 registros)         → CPF (11B), Nome (160B), Endereco (200B), Telefone (16B), DataNascimento (12B), Sexo (1B)
+Filmes (2.000.000 registros)         → Codigo (16B), Nome (160B), Genero (80B)
+Funcionarios (3.500 registros)       → CPF (11B), Nome (160B)
+Midias (10.000.000 registros)        → Identificador (24B), Tipo (8B), PrecoDiaria (24B)
+Aluguel (20.000.000 registros)       → DataLocacao (12B), DataDevolucao (10B), ValorPagar (24B)
+Pagamentos (50.000.000 registros)    → Codigo (48B), Data (12B), Valor (24B)
+AtoresEmFilmes (1.000.000 registros) → CodFilme (16B), CodAtor (16B)
+
+|----------------|------------|---------------------|----------------|--------------------|-------------|
+|    Arquivos    |  registro  |       Total         |    Total KB    | Blocos por arquivo | Desperdício |
+|----------------|------------|---------------------|----------------|--------------------|-------------|
+|     Atores     |  176 bytes |     1.760.032 bytes |      1.718 kb  |    880.016 blocos  |     0 KB    |
+|    Clientes    |  400 bytes |    40.000.000 bytes |     39.062 kb  |     20.000 blocos  |     0 KB    |
+|     Filmes     |  256 bytes |   512.000.000 bytes |    500.000 kb  |    256.000 blocos  |     0 KB    |
+|  Funcionarios  |  182 bytes |       637.000 bytes |        622 kb  |        319 blocos  |     1 KB    |
+|     Midias     |   72 bytes |   720.000.000 bytes |    703.125 kb  |    360.000 blocos  |     0 KB    |
+|     Aluguel    |   92 bytes | 1.840.000.000 bytes |  1.796.875 kb  |    920.000 blocos  |     0 KB    |
+|   Pagamentos   |  131 bytes | 6.550.000.000 bytes |  6.396.484 kb  |  3.275.000 blocos  |     0 KB    |
+| AtoresEmFilmes |   32 bytes |    32.000.000 bytes |     31.250 kb  |     16.000 blocos  |     0 KB    |
+|----------------|------------|---------------------|----------------|--------------------|-------------|
+

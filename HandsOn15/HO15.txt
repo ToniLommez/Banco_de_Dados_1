@@ -1,0 +1,59 @@
+============= Questao 1 =============
+
+Considerando o bloqueio exclusivo o escalonamento Sa possui deadlock? 
+Entre quais transações? Qual o escalonamento que efetivamente será executado?
+
+r3(y), r2(z), r1(x), r2(x), r3(z), r2(y), w3(y), r1(y), w2(z), w1(x), r3(x), r1(z)
+
+Tentativa 1:
+Blq: l3(y), l2(z), l1(x)
+Esp: r2(x), r3(z), r2(y), w3(y), r1(y), w2(z), w1(x), r3(x), r1(z)
+Sa:  r3(y), r2(z), r1(x),
+DEADLOCK! T1, T2 e T3 estao em espera mutua.
+
+Tentativa 2 (Matando T1):
+Blq: l3(y), l2(z), l2(x)
+Esp: r3(z), r2(y), w3(y), w2(z), r3(x)
+Sa:  r3(y), r2(z), r2(x),
+DEADLOCK! T3 e T2 em espera mutua.
+
+Tentativa 3 (Matando T2):
+Blq: l3(y), l3(z), l3(x), u3(y), u3(z), u3(x), 
+Esp: 
+Sa:  r3(y), r3(z), w3(y), r3(x)
+
+>> No fim o escalonamento foi serial <<
+
+============= Questao 2 =============
+
+Considerando o bloqueio compartilhado o escalonamento Sa possui deadlock? 
+Entre quais transações? Qual o escalonamento que efetivamente será executado?
+
+Tentativa 1:
+Blq: rl3(y), rl2(z), rl1(x)
+Esp: r2(x), r3(z), r2(y), w3(y), r1(y), w2(z), w1(x), r3(x), r1(z)
+Sa:  r3(y), r2(z), r1(x), 
+DEADLOCK! T1, T2 e T3 estao em espera mutua.
+
+Tentativa 2 (Matando T1):
+Blq: rl3(y), rl2(z), rl2(x)
+Esp: r3(z), r2(y), w3(y), w2(z) r3(x),
+Sa:  r3(y), r2(z), r2(x)
+DEADLOCK! T3 e T2 em espera mutua.
+
+Tentativa 3 (Matando T2):
+Blq: rl3(y), rl3(z), wl3(y), rl3(x), ru3(y), ru3(z), wu3(y), ru3(x)
+Esp: 
+Sa:  r3(y), r3(z), w3(y), r3(x)
+
+>> No fim o escalonamento foi serial <<
+
+============= Questao 3 =============
+
+Considerando a técnica de controle de concorrência por ordenação de registros de timestamp, 
+qual o escalonamento que efetivamente será executado?
+
+Mesma situação anterior, os processos 1 e 2 serao mortos por conflito e acontecera um escalonamento 
+serial de T3, T2, T1 respectivamente, respeitando o momento de entrada das transações.
+
+r3(y), r3(z), w3(y), r3(x), r2(z), r2(x), r2(y), w2(z), r1(x), r1(y), w1(x), r1(z)

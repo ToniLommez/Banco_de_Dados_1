@@ -1,0 +1,383 @@
+Marcos Antonio Lommez Candido Ribeiro - 771157
+
+Apresentar 
+a árvore de consulta inicial (não otimizada) com o parsing da consulta em ordem natural (da esquerda para a direita), 
+a árvore de consulta inicial (não otimizada) com o parsing da consulta em ordem reversa (da direita para a esquerda), 
+
+a árvore de consulta otimizada,
+a consulta reescrita de acordo com a árvore de consulta otimizada com o parsing da consulta em ordem natural (da esquerda para a direita), 
+a consulta reescrita de acordo com a árvore de consulta otimizada com o parsing da consulta em ordem reversa (da direita para a esquerda) 
+
+e o plano de execução da consulta otimizada para cada uma das consultas SQL apresentadas abaixo:
+
+==================================================================================
+
+------------------------------ original ------------------------------
+
+    SELECT A.CPF, A.Nome, B.Nome
+    FROM Funcionarios A, Clientes B, Aluguel C, Funcionarios D
+    WHERE A.CPF = B.CPF
+    AND B.CPF = C.CPF_Cliente
+    AND B.Sexo = "M"
+    AND C.ValorPagar>50
+    AND A.CPF = D.CPF_Supervisor
+
+---------------- arvore inicial (esquerda >> direita) ----------------
+
+    .                   π A.CPF, A.Nome, B.Nome
+    .                             |
+    .                             |
+    .                  ⨝ A.CPF=D.CPF_Supervisor
+    .                      /              \
+    .                     /                \
+    .              σ C.ValorPagar>50       ρ D
+    .                     |                 |
+    .                     |                 |
+    .                σ B.Sexo = 'M'    Funcionarios
+    .                     |
+    .                     |
+    .           ⨝ B.CPF=C.CPF_Cliente
+    .              /            \
+    .             /              \
+    .      ⨝ A.CPF=B.CPF        ρ C
+    .        /        \           |
+    .       /          \          |
+    .     ρ A          ρ B     Aluguel
+    .      |            |
+    .      |            |
+    . Funcionarios   Clientes
+
+---------------- arvore inicial (direita >> esquerda) ----------------
+
+    .                     π A.CPF, A.Nome, B.Nome
+    .                               |
+    .                               |
+    .                        ⨝ A.CPF = B.CPF
+    .                               |
+    .                 ______________|_____________
+    .                /                            \
+    .               /                              \
+    .  ⨝ A.CPF = D.CPF_Supervisor      ⨝ B.CPF = C.CPF_Cliente
+    .         /         \                   /              \
+    .        /           \                 /                \
+    .      ρ A           ρ D      σ C.ValorPagar>50    σ B.Sexo = 'M'
+    .       |             |               |                  |
+    .       |             |               |                  |
+    .  Funcionarios  Funcionarios        ρ C                ρ B
+    .                                     |                  |   
+    .                                     |                  |
+    .                                  Aluguel            Clientes
+
+-------------------------- arvore otimizada --------------------------
+
+    .                                 π A.CPF, A.Nome, B.Nome
+    .                                            |
+    .                                            |
+    .                               ⨝ A.CPF = D.CPF_Supervisor
+    .                                 ___________|___________
+    .                                /                       \
+    .                       ⨝ A.CPF = B.CPF                 ρ D
+    .                   ____________|____________             |
+    .                  /                         \            |
+    .      ⨝ B.CPF = C.CPF_Cliente              ρ A     Funcionarios
+    .         /               \                   |
+    .        /                 \                  |
+    . σ B.Sexo = 'M'    σ C.ValorPagar>50    Funcionarios
+    .       |                   |
+    .       |                   |
+    .      ρ B                 ρ C
+    .       |                   |
+    .       |                   |
+    .    Clientes            Aluguel
+
+-------------------- consulta otimizada (natural) --------------------
+
+    SELECT A.CPF, A.Nome, B.Nome
+    FROM Funcionarios A, Clientes B, Aluguel C, Funcionarios D
+    WHERE C.ValorPagar > 50
+    AND B.Sexo = "M"
+    AND B.CPF = C.CPF_Cliente
+    AND A.CPF = B.CPF
+    AND A.CPF = D.CPF_Supervisor
+
+-------------------- consulta otimizada (reversa) --------------------
+
+    SELECT A.CPF, A.Nome, B.Nome
+    FROM Funcionarios A, Clientes B, Aluguel C, Funcionarios D
+    WHERE A.CPF = D.CPF_Supervisor
+    AND A.CPF = B.CPF
+    AND B.CPF = C.CPF_Cliente
+    AND B.Sexo = "M"
+    AND C.ValorPagar > 50
+
+------------------------------ execucao ------------------------------
+
+    Pesquisa linear em arquivo nao indexado C
+    Pesquisa Linear em arquivo nao indexado B
+    Juncao de loop unico entre arquivos indexados B e arquivo nao indexados C
+    Juncao de loop unico entre arquivos indexados A e arquivos indexados B
+    Juncao de loop unico entre arquivos indexados A e arquivos indexados D
+    Ordenacao-intercalacao para os registros A.CPF, A.Nome, B.Nome
+
+==================================================================================
+
+------------------------------ original ------------------------------
+
+    SELECT A.Nome, C.Nome
+    FROM Filmes A, AtoresEmFilmes B, Atores C, Midias D
+    WHERE A.Codigo = B.CodFilme
+    AND B.CodAtor = C.Codigo
+    AND A.Genero = "Aventura"
+    AND A.Codigo = D.CodFilme
+    AND D.PrecoDiaria > 10
+
+---------------- arvore inicial (esquerda >> direita) ----------------
+
+    .                         π A.Nome, C.Nome
+    .                                 |
+    .                                 |
+    .                      σ D.PrecoDiaria > 10
+    .                                 |
+    .                                 |
+    .                     ⨝ A.Codigo = D.CodFilme
+    .                        /              \
+    .                       /                \
+    .           σ A.Genero = "Aventura"      ρ D
+    .                      |                  |
+    .                      |                  |
+    .           ⨝ B.CodAtor = C.Codigo     Midias
+    .             /                 \
+    .            /                   \
+    . ⨝ A.Codigo = B.CodFilme       ρ C
+    .       /        \                |
+    .      /          \               |
+    .    ρ A          ρ B          Atores
+    .     |            |
+    .     |            |
+    .   Filmes   AtoresEmFilmes
+
+---------------- arvore inicial (direita >> esquerda) ----------------
+
+    .                           π A.Nome, C.Nome
+    .                                   |
+    .                                   |
+    .                       ⨝ A.Codigo = B.CodFilme
+    .                       /                      \
+    .                      /                        \
+    .           σ A.Genero = "Aventura"    ⨝ B.CodAtor = C.Codigo
+    .                     |                       /        \
+    .                     |                      /          \
+    .         ⨝ D.CodFilme = A.Codigo         ρ B          ρ C
+    .             /             \               |            |
+    .            /               \              |            |
+    .  σ D.PrecoDiaria > 10      ρ A      AtoresEmFilmes   Atores
+    .           |                 |
+    .           |                 |
+    .          ρ D              Filmes
+    .           | 
+    .           |
+    .        Midias
+
+-------------------------- arvore otimizada --------------------------
+
+    .                                    π A.Nome, C.Nome
+    .                                            |
+    .                                            |
+    .                                 ⨝ A.Codigo = D.CodFilme
+    .                              ______________|______________
+    .                             /                             \
+    .                 ⨝ A.Codigo = B.CodFilme          σ D.PrecoDiaria > 10
+    .                ____________|____________                   |
+    .               /                         \                  |
+    .   σ A.Genero = "Aventura"     ⨝ B.CodAtor = C.Codigo     ρ D
+    .              |                   /              \          |
+    .              |                  /                \         |
+    .             ρ A               ρ B                ρ C    Midias
+    .              |                 |                  |
+    .              |                 |                  |
+    .            Filmes        AtoresEmFilmes        Atores
+
+-------------------- consulta otimizada (natural) --------------------
+
+    SELECT A.Nome, C.Nome
+    FROM Filmes A, AtoresEmFilmes B, Atores C, Midias D
+    WHERE A.Genero = "Aventura"
+    AND D.PrecoDiaria > 10
+    AND B.CodAtor = C.Codigo
+    AND A.Codigo = B.CodFilme
+    AND A.Codigo = D.CodFilme
+
+-------------------- consulta otimizada (reversa) --------------------
+
+    SELECT A.Nome, C.Nome
+    FROM Filmes A, AtoresEmFilmes B, Atores C, Midias D
+    WHERE A.Codigo = D.CodFilme
+    AND A.Codigo = B.CodFilme
+    AND B.CodAtor = C.Codigo
+    AND D.PrecoDiaria > 10
+    AND A.Genero = "Aventura"
+
+------------------------------ execucao ------------------------------
+
+    Pesquisa linear em arquivo nao indexado A
+    Pesquisa Linear em arquivo nao indexado B
+    Juncao de loop unico entre arquivos indexados B e arquivo indexados C
+    Juncao de loop unico entre arquivos indexados A e arquivos indexados B
+    Juncao de loop unico entre arquivos indexados A e arquivos indexados D
+    Ordenacao-intercalacao para os registros A.Nome, C.Nome
+
+==================================================================================
+
+------------------------------ original ------------------------------
+
+    SELECT A.CPF, A.Nome, B.Nome
+    FROM Funcionarios A, Clientes B, Aluguel C, Pagamentos D
+    WHERE A.CPF = B.CPF
+    AND C.ValorPagar > 100
+    AND B.CPF = C.CPF_Cliente
+    AND D.Valor < 50
+    AND A.CPF_Supervisor IS NULL
+    AND A.CPF = C.CPF_Funcionario
+
+---------------- arvore inicial (esquerda >> direita) ----------------
+
+    .                                               π A.CPF, A.Nome, B.Nome
+    .                                                          |
+    .                                                          |
+    .                                             σ A.CPF = C.CPF_Funcionario
+    .                                                          |
+    .                                                          |
+    .                                                ⨝ A.CPF = isNull.CPF     
+    .                                      ____________________|____________________
+    .                                     /                                         \
+    .                               ⨯ (produto)                                  ρ isNull
+    .                         ___________|___________                                |
+    .                        /                       \                               |
+    .              ⨝ B.CPF = C.CPF_Cliente     σ D.Valor < 50                   (A3 - A4)
+    .                /                 \               |                   __________|__________
+    .               /                   \              |                  /                     \
+    .    ⨝ A.CPF = B.CPF    σ C.ValorPagar > 100     ρ D              π CPF                   ρ A4
+    .        /       \                   |             |                 |                       | 
+    .       /         \                  |             |                 |                       | 
+    .     ρ A         ρ B               ρ C        Pagamentos           ρ A3                   π CPF
+    .      |           |                 |                               |                       |
+    .      |           |                 |                               |                       |
+    . Funcionarios  Clientes          Aluguel                      Funcionarios    ⨝ A1.CPF_Supervisor = A2.CPF    
+    .                                                                                      /          \
+    .                                                                                     /            \
+    .                                                                                   ρ A1          ρ A2
+    .                                                                                    |              |
+    .                                                                                    |              |
+    .                                                                              Funcionarios    Funcionarios
+
+---------------- arvore inicial (direita >> esquerda) ----------------
+
+    .                                                         π A.CPF, A.Nome, B.Nome
+    .                                                                    |
+    .                                                                    |
+    .                                                             σ A.CPF = B.CPF
+    .                                                                    |
+    .                                                                    |
+    .                                                           σ C.ValorPagar > 100
+    .                                                                    |
+    .                                                                    |
+    .                                                         ⨝ C.CPF_Cliente = B.CPF
+    .                                                    ________________|________________
+    .                                                   /                                 \
+    .                                            ⨯ (produto)                              ρ B
+    .                                 _________________|_________________                  |
+    .                                /                                   \                 |
+    .                     ⨝ A.CPF = isNull.CPF                    σ D.Valor < 50        Clientes
+    .               ________________|________________                     |
+    .              /                                 \                    |
+    .  ⨝ A.CPF = C.CPF_Funcionario               ρ isNull               ρ D
+    .        /          \                             |                   |
+    .       /            \                            |                   |
+    .     ρ A            ρ C                      (A3 - A4)          Pagamentos
+    .      |              |                 __________|__________
+    .      |              |                /                     \
+    . Funcionarios     Aluguel          π CPF                   ρ A4
+    .                                     |                       |
+    .                                     |                       |
+    .                                    ρ A3                   π CPF
+    .                                     |                       |
+    .                                     |                       |
+    .                               Funcionarios    ⨝ A1.CPF_Supervisor = A2.CPF
+    .                                                       /          \
+    .                                                      /            \
+    .                                                    ρ A1          ρ A2
+    .                                                     |              |
+    .                                                     |              |
+    .                                               Funcionarios    Funcionarios
+
+-------------------------- arvore otimizada --------------------------
+
+    .                                                            π A.CPF, A.Nome, B.Nome
+    .                                                                       |
+    .                                                                       |
+    .                                                                  ⨯ (produto) 
+    .                                                          _____________|_____________
+    .                                                         /                           \ 
+    .                                           σ A.CPF = C.CPF_Funcionario         σ D.Valor < 50
+    .                                                        |                             |
+    .                                                        |                             |
+    .                                            ⨝ B.CPF = C.CPF_Cliente                 ρ D
+    .                                               /                 \                    |
+    .                                              /                   \                   |
+    .                                     ⨝ A.CPF = B.CPF      σ C.ValorPagar > 100  Pagamentos
+    .                                      /            \                |
+    .                                     /              \               |
+    .                         ⨝ A.CPF = isNull.CPF      ρ B            ρ C
+    .                            /             \          |              |
+    .                           /               \         |              |
+    .                       ρ isNull            ρ A   Clientes        Aluguel
+    .                          |                 |
+    .                          |                 |
+    .                      (A3 - A4)        Funcionarios
+    .                __________|__________
+    .               /                     \ 
+    .             ρ A2                  π CPF
+    .              |                       |
+    .              |                       |
+    .            π CPF                   ρ A3
+    .              |                       |
+    .              |                       |
+    . ⨝ A1.CPF_Supervisor = A2.CPF   Funcionarios
+    .         /          \
+    .        /            \
+    .      ρ A1          ρ A2
+    .       |              |
+    .       |              |
+    .  Funcionarios  Funcionarios
+
+-------------------- consulta otimizada (natural) --------------------
+
+    SELECT A.CPF, A.Nome, B.Nome
+    FROM Funcionarios A, Clientes B, Aluguel C, Pagamentos D
+    WHERE A.CPF_Supervisor IS NULL
+    AND C.ValorPagar > 100
+    AND D.Valor < 50
+    AND A.CPF = B.CPF
+    AND B.CPF = C.CPF_Cliente
+    AND A.CPF = C.CPF_Funcionario
+
+-------------------- consulta otimizada (reversa) --------------------
+
+    SELECT A.CPF, A.Nome, B.Nome
+    FROM Funcionarios A, Clientes B, Aluguel C, Pagamentos D
+    WHERE A.CPF = C.CPF_Funcionario
+    AND B.CPF = C.CPF_Cliente
+    AND A.CPF = B.CPF
+    AND D.Valor < 50
+    AND C.ValorPagar > 100
+    AND A.CPF_Supervisor IS NULL
+
+------------------------------ execucao ------------------------------
+
+    Pesquisa linear em arquivo nao indexado A
+    Pesquisa Linear em arquivo nao indexado C
+    Pesquisa Linear em arquivo nao indexado D
+    Juncao de loop unico entre arquivos indexados A e arquivo indexados B
+    Juncao de loop unico entre arquivos indexados B e arquivos indexados C
+    Juncao de loop unico entre arquivos indexados A e arquivos indexados C
+    Ordenacao-intercalacao para os registros A.CPF, A.Nome, B.Nome

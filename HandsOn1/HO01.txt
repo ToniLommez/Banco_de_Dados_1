@@ -1,0 +1,162 @@
+◦ O que é um sistema de banco de dados (SBD)?
+Um sistema de banco de dados é uma coleção de dados (Banco de dados) necessariamente organizados 
+dentro de uma estrutura logica (Modelo de Dados)que decide como estes dados serao armazenados, 
+organizados e manipulados, junto a um SGBD (Sistema Gerenciador de Banco de Dados) que é um 
+software que provera acesso a usuarios e aplicações.
+Coleção de Dados -> Banco de Dados
+Estrutura Logica -> Modelo de Dados
+Software -> Sistema Gerenciador de Banco de Dados
+
+
+◦ Do que um SBD é composto?
+Um sistema de banco de dados é composto por uma coleção de dados, uma estrutura logica e um software.
+Sendo que estes se organizam em um repositorio com 2 partes, uma sendo o Banco de Dados e outra 
+as Definições do Banco de Dados (Metadados) que se ligam a um software de acesso ao repositorio
+e este se liga ao software de compilação e otimização e por fim assim dao saida e entrada a
+usuários e aplicações
+
+
+◦ Como usuários e aplicações interagem com um SBD?
+As interações são feitas submetendo-se consultas, que serão analisadas pelo software inicialmente
+com otimizações para correta execução e em seguida recupera dados a partir dos repositorios sob
+seu controle
+
+
+◦ O que é um banco de dados (BD)? Cite um exemplo de um BD, indicando o link onde seja possível encontrá-lo.
+Um banco de dados é com conjunto de simbolos, sinais e codigos. Não pode ser confundido com informação/conhecimento
+porque isso implica que tudo aquilo inserido no BD é conhecido e entendido. Conjunto a isto um banco de dados
+necessariamente atende a necessidades especificas de seus usuarios, ele necessariamente possui um fim ultimo
+a qual sera criado e utilizado.
+Como exemplo um banco de dados de uma imobiliaria
+https://www.vivareal.com.br/venda/minas-gerais/belo-horizonte/apartamento_residencial/
+
+
+◦ Quais são as propriedades de um BD?
+Banco de dados possuem algumas propriedades implicitas, que são:
+1 - Ela representa algum aspecto do mundo real, as vezes chamado de Minimundo ou 
+Universo de discurso (universe of discourse (UoD)), mudanças no minimundo se refletem no Banco de Dados
+2 - Um Banco de Dados é uma coleção logica e coerente com algum significado implicito
+3 - Um Banco de Dados é planejado, construido e populado com dados que possuem um proposito especifico.
+Ele necessariamente possui um proposito de uso que pessoas ou aplicações possuem interesse
+
+
+◦ Quais são as etapas de um projeto de BD?
+Se começa com a Especificação de Requisitos e Análise, que é documentada em detalhes e transformada no
+Design Conceitual, em seguida este design é traduzido em um Design Lógico que pode ser implementado em um
+SGBD, e então o estagio final é o Design Físico. Por fim o Design do Banco de Dados pode ser implementado,
+populado com dados e continuamente mantido para refletir o estado do Minimundo.
+- Especificação de Requisitos e Análise
+- Design Conceitual
+- Design Lógico
+- Design Físico
+
+◦ O que é um sistema gerenciador de banco de dados (SGBD)?
+o SGBD é um sistema computadorizado que permite a um usuario criar e manter o Banco de Dados.
+é um software de proposito geral que facilita o processo de definição, construção, manipulação e compartilhamento
+entre varios usuarios da aplicação.
+
+
+◦ Quais são as propriedades de um SGBD?
+O SGBD possui caracteristicas que o diferem de um sistema de processamento de arquivo, sendo que o
+SGBD possui natureza auto-descritiva que se representam em meta-dados que são armazenados com
+informações que refletem e explicam os dados armazenados e sua estrutura logica e ligações, 
+os dados e o programa sao isolados, logo modificar a estrutura de um dado não necessita de mudanças
+no SGBD. Além disto o SGBD suporta multiplas visoes dos dados por diferentes perspectivas que
+podem ser construidas de acordo com a necessidade, essas visoes não precisam ter seus dados
+explicitamente gravados. Também é possivel fazer processamento e transações multi usuárias. 
+Existem diversas outras caracteristicas que podem ser resumidas em:
+Flexibilidade, economia de escala, garantia de padrão, backup e recuperação, baixo tempo de
+desenvolvimento, relacionamentos complexos e disponibilidade elevada.
+
+
+◦ Indique situações em que o uso de SGBD pode se mostrar inadequado.
+Embora vantajosos em muitos aspectos SGBD's nem sempre são indicados em determinados casos, sendo
+estes baseados no nivel de complexidade que envolve a sua situação. O SGBD se encaixa basicamente num
+nivel de complexidade medio, não se dando bem para coisas muito simples (por ser complexo) e nem com
+coisas muito completas ou sofisticadas (gerando limitações).
+Outros pontos mais expressivos que o SGBD se mostra inadequado são para: Monousuarios ou Custo Proibitivo.
+
+
+◦ O que é um modelo de dados? 
+O modelo de dados é uma estrutura logica que oferece meios para se construir a abstração de dados
+sendo esta diferentes pontos de vistas que são construidos a partir dos recursos entregues pelo
+banco de dados, influenciados por diversos fatores
+
+
+◦ Em relação ao nível de abstração, quais são os tipos de modelos de dados?
+Existem 3 níveis de abstração para modelos de dados, sendo estes alto, medio e baixo nível
+O nível mais alto é o Conceitual, ele representa os dados e sua estrutura como os usuários a percebem
+O nível intermediario é o Representativo, conhecido como modelo de implementação, ele 
+representa a estrutura mas esconde os detalhes que pertencem ao nível físico. ele representa como conceitos 
+os objetos, as relações, as colunas e as tuplas.
+O nível mais baixo é o Físico que representa a estrutura do banco e seus aspectos de armazenamento físicos
+como os arquivos, registros, campos e etc, enfim tudo aquilo que faz parte do aspecto fisico da coisa.
+
+
+◦ O que é um Esquema de BD?
+O esquema de um Banco de Dados é a sua descrição, conjunto de metadados que o compõem.
+Ao se definir um Banco de Dados o que fazemos é especificar o seu Esquema. Como caracteristica intriseca 
+diferentemente da sua estrutura que muda regularmente para se adaptar ao minimundo o Esquema dificilmente,
+uma vez planejado ele tende a se manter estatico. Normalmente um Esquema é representado por um diagrama
+que possui um construtor do esquema.
+
+
+◦ O que é uma Instância de BD?
+A Instância é o dado em sí em um determinado momento do tempo, sendo analogamente comparado a uma "foto do BD" ou snapshot,
+sendo oposto ao conceito do Esquema que como dito é intrisecamente estatico, logo a Instância muda a todo momento. 
+A instância possue diferentes estados que são o estado Vazio onde o BD ainda não foi populado, o estado inicial
+quando os primeiros dados populam o BD e sem seguida diversos outros estados, sendo um novo estado para cada alteração
+de inserir, remover ou modificar algum valor de um item.
+
+
+◦ Quais as vantagens de se adotar uma Arquitetura de Três Esquemas para implementar um BD?
+A Arquitetura de Três Esquemas possui algumas vantagens que podem ser facilmente mencionadas como a
+Auto Descrição que é a capacidade de se auto descrever atraves de metadados, logo é facilmente entendida,
+Suporte a Múltiplas Visões, podendo assim entregar diversos pontos de vistas e maneiras de se observar o BD de
+maneira em que modificar o banco de dados automaticamente atualiza as visões sem grandes dificuldades e
+Independência de Aplicação e Estrutura do BD, logo modificar a estrutura não influencia na aplicação e vice versa.
+A arquitetura de Três esquemas privilegiam caracteristicas que trazem flexibilidade ao SGBD, sendo assim
+garantindo as caracteristicas fundamentais do mesmo.
+
+
+◦ Quais níveis existem em uma Arquitetura de Três Esquemas?
+Existem 3 em uma Arquitetura de Três Esquemas que é paralelo aos 3 niveis de abstração para modelos de dados
+sendo estes um mais proximo ao usuario que é o esquema externo, um mais proximo a implementaçao que é o conceitual
+e um nivel proximo aos dados que é o esquema interno. No nivel externo tem as visões dos usuarios que controla o que
+eles podem ou não ver. No nivel conceitual esta a estrutura do BD, seus metadados, entidades, relacionamentos, restrições
+e etc, juntamente a isto ocultando detalhamento fisico. No nível interno o esquema físico esta a estrutura do armazenamento
+físico do BD, descrição dos tipos de arquivos por exemplo.
+
+
+◦ O que é Mapeamento em uma Arquitetura de Três Esquemas?
+Devido a existencia de diferentes níveis dos esquemas é feito um mapeamento dos mesmos. Eles fazem uma
+transformação de requisições e resultados entre níveis. Sendo o Mapeamento então uma manipulação da informação para que
+os níveis possam requisitar entre si
+
+
+◦ O que é Independência de Dados e qual sua importância para um SBD?
+A independência de dados é uma caracteristica muito importante do SBD pois permite que metadados e estruturas sejam
+manipuladas e modificadas sem que seja necessario uma refação de todos os outros que não foram modificados.
+Apagar um indice não influencia na refação completa da tabela e nem de outras tabelas pois as mesmas sao independentes.
+A independencia é multinível, alterar um estado lógico não muda a necessidade de mudar o físico e vice versa.
+Na pratica ao se fazer uma alteração o que é modificado é o mapeamento.
+
+
+◦ O que é uma Linguagem de Consulta?
+Uma Linguagem de Consulta é uma linguagem de Alto Nível (não procedural) que traz alta eficiencia sem precisar lidar
+com a parte baixa da informação, voce especifica o que quer fazer e não como, de forma complexa e concisa. Dentro
+desta lingaugem é possivel fazer diversas manipulações de alto nível de complexidade com instruções simples e diretas,
+logo mais amigaveis consequentemente
+
+
+◦ Cite as linguagens incorporadas na linguagem SQL.
+Sendo o SQL uma linguagem de Alto Nível ela incorpora os conceitos das diferentes linguagens que tratam do Banco de Dados.
+Cada linguagem é baseada em tratar de um nível diferente, os mesmos níveis que separam a linguagem, aqueles mais proximos do 
+usuario ou mais proximo do físico. Por fim estas linguagens são:
+VDL (View Definition Language)    = VIEW ... 
+DDL (Data Definition Language)    = CREATE, ALTER, DROP, TRUNCATE ... 
+SDL (Storage Definition Language) = ENGINE, INNODB, MEMORY ... 
+DML (Data Manipulation Language)  = SELECT, INSERT, UPDATE, DELETE ... 
+Mas é importante dizer que estas linguagens não são tratadas como separadas dentro do SQL e sim como interligadas entre si,
+embora citados separadamente os codigos podem fazer parte ao mesmo de tempo de mais de 1 linguagem, e ao classificarmos
+podemos encontrar também outras definições de linguagens alem destas.

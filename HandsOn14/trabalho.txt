@@ -1,0 +1,41 @@
+Responder as seguintes questões:
+
+1. O escalonamento Sa é completo? Justifique sua resposta.
+
+2. Considerando que as últimas operações no escalonamento Sa sejam c2, c3, c1,  nessa ordem, o escalonamento Sa é recuperável? Justifique sua resposta apresentando todas as leituras sujas existentes.
+
+3. O escalonamento Sa é serializável? Justifique sua resposta apresentando o grafo de precedência completo.
+
+Considere que o escalonamento Sa apresentado abaixo foi constituído a partir das transações T1, T2 e T3 também apresentadas abaixo. Ressalta-se que, em um SGBDR diversas transações devem ser escalonadas para executarem simultaneamente, aumentando assim a concorrência e, consequentemente, diminuindo o tempo de processamento. No entanto, tal concorrência demanda a utilização de técnicas de controle de concorrência para garantir as propriedades de Atomicidade, Consistência, Isolamento e Durabilidade (ACID).
+
+T1 = r1(x), r1(y), w1(x), r1(z)
+
+T2 = r2(z), r2(x), r2(y), w2(z)
+
+T3 = r3(y), r3(z), w3(y), r3(x)
+
+Sa = r3(y), r2(z), r1(x), r2(x), r3(z), r2(y), w3(y), r1(y), w2(z), w1(x), r3(x), r1(z), c2, c3, c1
+
+=================== questao 1 ===================
+
+1. O escalonamento Sa é completo? Justifique sua resposta.
+
+    Sim, o escalonamento é completo porque possui exatamente as mesmas transações das operações originais, alem de preservar a ordem das transacoes originais, logo Sa é um escalonamento completo
+
+=================== questao 2 ===================
+
+2. Considerando que as últimas operações no escalonamento Sa sejam c2, c3, c1, 
+nessa ordem, o escalonamento Sa é recuperável? Justifique sua resposta apresentando todas as leituras sujas existentes.
+
+    Leituras sujas existentes em:
+    w3(y) => r1(y)
+    w2(z) => r1(z)
+    w1(x) => r3(x)
+
+    A primeira leitura suja entre T3 e T1 nao ira gerar problemas pois a conclusao de c3 esta vindo primeiro logo caso seja necessario aborta-la, nenhuma operacao de conclusao precisara ser revertida.
+    A conclusao c2 e depois c1 tambem respeita a segunda leitura suja, permitindo que seja recuperavel sem reverter uma operacao de conclusao.
+    Por fim a terceira leitura suja nao é recuperavel pois caso algum erro aconteça na conclusao c1, sera necessario desfazer a conclusao c3
+
+=================== questao 3 ===================
+
+3. O escalonamento Sa é serializável? Justifique sua resposta apresentando o grafo de precedência completo.
